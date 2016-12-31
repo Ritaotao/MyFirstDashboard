@@ -1,0 +1,33 @@
+<!-- {% extends 'base.html' %} -->
+
+{% block jumbotron %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Fulfillment Calculation</h1>
+        <p>This is the index page to start the fulfillment estimation.Welcome! (Note that default time zone is UTC)</p>
+<!--         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+{% endblock %}
+
+{% block content %}
+<div class="col-md-4">
+          <h2>1. Download Complete Subscription Report</h2>
+          <p class="text-warning">Only need to download once per login.</p>
+          <p><a class="btn btn-default" href="download" role="button">Download &raquo;</a></p>
+  		</div>       
+        <div class="col-md-4">
+          <h2>2. Update Parameters</h2>
+			<form method='POST' action=''> {% csrf_token %}
+			{{ form.as_p }}
+      <button type="submit" class="btn btn-default">Submit</button>
+			<!-- <input type='submit'> -->
+			</form>
+        </div>
+        <div class="col-md-4">
+          <h2>3. Get Insights</h2>
+          <p class="text-warning">Click "Quick View" to initiate the computation first, then click "Details" to see detailed stats.</p>
+          <p><a class="btn btn-default" href="insight" role="button">Quick View</a></p>
+          <p><a class="btn btn-default" href="detail" role="button">Details &raquo;</a></p>
+        </div>
+
+{% endblock %}

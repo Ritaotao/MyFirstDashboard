@@ -1,0 +1,26 @@
+Documentation of FulfillmentCalcs.py and FCgui.py
+
+First install the tool for installing Python packages: 
+	$ sudo easy_install pip
+Installation of 'requests' mod (use to interact with websites): 
+	$ sudo pip install requests
+Installation of 'pandas' mod (use to manipulate data frames): 
+	$ sudo pip install pandas
+
+Installation of 'Pillow' mod (alias of PIL)
+	$ sudo pip install Pillow
+
+###
+FulfillmentCalcs.py is a program computes the inventory fulfillment.
+Input Variables:
+	New Members per Day
+    New Gift Members per Day
+    Avg Additional Churn
+    Buffer
+    Percentage of Variety Packs containing 2 Reds
+    Percentage of Variety Packs containing 2 Whites
+    Date to start the calculation
+
+The program contains a SubscribePro API to pull reports.
+
+P.S. The FCgui.py is the GUI Version of the program.

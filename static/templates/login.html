@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block jumbotron %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome to the WA dashboard! </h1>
+        <p>Currently Justin is working on the shipping estimation. He hopes to include the major KPIs and implement estimations here.</p>
+<!--         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+{% endblock %}
+
+{% block content %}
+    <div id="login" style='text-align: center;'>
+        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="username"  placeholder="Username">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <p></p>
+        <div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-default">Login</button>
+            </div>
+        </div>
+    </div>
+        </form>
+    </div>
+{% endblock %}

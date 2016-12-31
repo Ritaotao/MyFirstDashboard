@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Details Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/static/css/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/grid.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/static/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <hr>
+      <p><a class="btn btn-default" href="/membership/" role="button">&laquo; Back</a></p>
+      <hr>
+
+      <div class="page-header">
+        <h1>Results</h1>
+        <p class="lead">This page includes overall stats and estimations.</p>
+      </div>
+
+      <h3>Initial Assumptions:</h3>
+      <p>Pre-defined parameters. If not defined, always use the latest set.</p>
+      <div class="row">
+        <div class="col-md-4">Date from: {{start}}</div>
+        <div class="col-md-4">Date to: {{end}}</div>
+        <div class="col-md-4">Variety 2 Reds: {{r2w1_percent}} %</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Daily New Non-gift Members: {{new_member}}</div>
+        <div class="col-md-4">Daily New Gift Members: {{new_gift_member}}</div>
+        <div class="col-md-4">Buffer: {{buffer}}</div>
+      </div>
+
+      <hr>
+
+      <h3>Final Result:</h3>
+      <p>Estimated <strong>total number of subscriptions</strong> for the coming month: <strong>{{tot_pack}}</strong>
+      <p class="text-warning">Total packs=(non_gift_population*(1-nfm_churn))+(daily_new_member*days*(1-fm_churn))+(gift_population+daily_new_gift*days)+buffer</p>
+      <p class="text-warning">Days=right-start</p>
+      <h4>Bottle Split:</h4>
+      <p class="text-warning">Total bottles=total_packs*weighted_average</p>
+      <p class="text-warning">Red bottles=total_bottles*red_percentage; White bottles=total_bottles-red_bottles</p>
+      <div class="row">
+        <div class="col-md-4">Red: {{red_bottles}} bottles</div>
+        <div class="col-md-4">White: {{white_bottles}} bottles</div>
+        <div class="col-md-4">Total: {{tot_bottles}} bottles</div>
+      </div>
+      <h4>Case Split:</h4>
+      <p class="text-warning">Case number=bottle_number/12(round up)</p>
+      <div class="row">
+        <div class="col-md-4">Red: {{red_cases}} cases</div>
+        <div class="col-md-4">White: {{white_cases}} cases</div>
+        <div class="col-md-4">Total: {{tot_cases}} cases</div>
+      </div>
+      <p class="text-warning">Each type of wine=case_number/3(round up)</p>
+      <div class="row">
+        <div class="col-md-4">r1: {{reds_each}} cases</div>
+        <div class="col-md-4">r2: {{reds_each}} cases</div>
+        <div class="col-md-4">r3: {{reds_each}} cases</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">w1: {{whites_each}} cases</div>
+        <div class="col-md-4">w2: {{whites_each}} cases</div>
+        <div class="col-md-4">w3: {{whites_each}} cases</div>
+      </div>
+      <h4>Real Bottles:</h4>
+      <p class="text-warning">Real bottles=cases_each_type*3*12</p>
+      <div class="row">
+        <div class="col-md-4">Red: {{real_red}} bottles</div>
+        <div class="col-md-4">White: {{real_white}} bottles</div>
+        <div class="col-md-4">Total: {{real_tot}} bottles</div>
+      </div>
+      <h4>Swing Safe:</h4>
+      <p class="text-warning">The baseline case number of each type of wine to fulfill all orders:</p>
+      <div class="row">
+        <div class="col-md-6">Min Red: {{min_red}} cases</div>
+        <div class="col-md-6">Min White: {{min_white}} cases</div>
+      </div>
+
+      <hr>
+
+      <h3>Churn Estimation:</h3>
+      <p>Estimate <strong>first-month churn</strong> and <strong>non-first-month</strong> churn based on <strong>2-month</strong> historical data.</p>
+      <div class="row">
+        <div class="col-md-6">FM Churn: {{fm_churn}} %</div>
+        <div class="col-md-6">NFM Churn: {{nfm_churn}} %</div>
+      </div>
+
+      <hr>
+
+      <h3>Active Subscription Stats:</h3>
+      <p>We currently have <strong>{{pop_tot}}</strong> active subscriptions with a valid <strong>next order date</strong> within <strong>{{start}}</strong> and <strong>{{end}}</strong>, including:</p>
+      <div class="row">
+        <div class="col-md-3">Non-gift: {{pop_ng}}</div>
+        <div class="col-md-3">Gift: {{pop_gi}}</div>
+        <div class="col-md-3">3-pack: {{pop_3pack}}</div>
+        <div class="col-md-3">6-pack: {{pop_6pack}}</div>
+      </div>
+      <h4>Percentage Quickview:</h4>
+      <p>Within the <strong>{{pop_tot}}</strong> subscriptions:</p>
+      <div class="row">
+        <div class="col-md-2">Red-three: {{red3_perc}} %</div>
+        <div class="col-md-2">White-three: {{white3_perc}} %</div>
+        <div class="col-md-2">Variety-three: {{variety3_perc}} %</div>
+        <div class="col-md-2">Red-six: {{red6_perc}} %</div>
+        <div class="col-md-2">White-six: {{white6_perc}} %</div>
+        <div class="col-md-2">Variety-six: {{variety6_perc}} %</div>
+      </div>
+
+      <h4>Non-gift Breakdwon:</h4>
+      <p>Session 1: From <strong>{{start}}</strong> to <strong>{{left}}</strong>:</p>
+      <div class="row">
+        <div class="col-md-2">Red-three: {{ng_red3_l}}</div>
+        <div class="col-md-2">White-three: {{ng_white3_l}}</div>
+        <div class="col-md-2">Variety-three: {{ng_variety3_l}}</div>
+        <div class="col-md-2">Red-six: {{ng_red6_l}}</div>
+        <div class="col-md-2">White-six: {{ng_white6_l}}</div>
+        <div class="col-md-2">Variety-six: {{ng_variety6_l}}</div>
+      </div>
+      <p>Session 2: From <strong>{{right}}</strong> to <strong>{{end}}</strong>:</p>
+      <div class="row">
+        <div class="col-md-2">Red-three: {{ng_red3_r}}</div>
+        <div class="col-md-2">White-three: {{ng_white3_r}}</div>
+        <div class="col-md-2">Variety-three: {{ng_variety3_r}}</div>
+        <div class="col-md-2">Red-six: {{ng_red6_r}}</div>
+        <div class="col-md-2">White-six: {{ng_white6_r}}</div>
+        <div class="col-md-2">Variety-six: {{ng_variety6_r}}</div>
+      </div>
+      <h4>Gift Breakdown:</h4>
+      <p>Session 1: From <strong>{{start}}</strong> to <strong>{{left}}</strong>:</p>
+      <div class="row">
+        <div class="col-md-4">Red-three: {{g_red3_l}}</div>
+        <div class="col-md-4">White-three: {{g_white3_l}}</div>
+        <div class="col-md-4">Variety-three: {{g_variety3_l}}</div>
+      </div>
+      <p>Session 2: From <strong>{{right}}</strong> to <strong>{{end}}</strong>:</p>
+      <div class="row">
+        <div class="col-md-4">Red-three: {{g_red3_r}}</div>
+        <div class="col-md-4">White-three: {{g_white3_r}}</div>
+        <div class="col-md-4">Variety-three: {{g_variety3_r}}</div>
+      </div>
+
+      <hr>
+
+      <h3>Bottlewise Estimation:</h3>
+      <p>This section shows the <strong>red/white-bottle percentages</strong> of the active subscriptions and the <strong>weighted average</strong> bottles per pack.</p>
+      <p class="text-warning">We assume no bias for subscribers' churn due to their preferences.</p>
+      <p class="text-warning">Based on above active subscription data, Red/white ratio uses red/white-bottle split; Weighted Average uses 3/6-pack split.</p>
+      <div class="row">
+        <div class="col-md-4">Red: {{red_perc}} %</div>
+        <div class="col-md-4">White: {{white_perc}} %</div>
+        <div class="col-md-4">Weighted Average (bottles per pack): {{wa}}</div>
+      </div>
+
+      <hr>
+
+      <p><a class="btn btn-default" href="/membership/" role="button">&laquo; Back</a></p>
+      <hr>
+
+      <footer>
+        <p>&copy; 2015 Wine Awesomeness, Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
